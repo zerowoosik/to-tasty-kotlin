@@ -3,6 +3,9 @@ plugins {
     kotlin("plugin.spring") version "1.9.25"
     id("org.springframework.boot") version "3.5.4"
     id("io.spring.dependency-management") version "1.1.7"
+
+    kotlin("plugin.noarg") version "2.2.10"
+    kotlin("plugin.jpa") version "2.2.10"
 }
 
 group = "org.example"
@@ -39,6 +42,11 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
+
+    runtimeOnly ("com.h2database:h2")
+    runtimeOnly ("com.mysql:mysql-connector-j")
+//    runtimeOnly ("org.springframework.boot:spring-boot-docker-compose")
+
     //jjwt
     implementation("io.jsonwebtoken:jjwt-api:0.12.7")
 }
@@ -51,4 +59,8 @@ kotlin {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+noArg{
+    annotation("com.example.totastykotlin.domain.meeting.entity.MeetingParticipation")
 }

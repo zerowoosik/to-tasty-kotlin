@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: to-tasty
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
