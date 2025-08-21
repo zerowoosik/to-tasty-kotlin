@@ -2,6 +2,7 @@ package org.example.totastykotlin.domain.meeting.dto.response
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import io.swagger.v3.oas.annotations.media.Schema
+import org.example.totastykotlin.domain.meeting.entity.Meeting
 import java.time.LocalDateTime
 
 class MeetingListResponse(
@@ -14,8 +15,8 @@ class MeetingListResponse(
     @Schema(description = "모임 제목", example = "우리 오늘 취해봐요~ 낭만에 취해요")
     private val meetingTitle: String? = null,
 
-//    @Schema(description = "모임 위치")
-//    private val location: LocationResponse? = null,
+    @Schema(description = "모임 위치")
+    private val location: LocationResponse? = null,
 
     @Schema(description = "참가비", example = "30000")
     private val participationFee: Int? = null,
@@ -55,13 +56,37 @@ class MeetingListResponse(
     @Schema(description = "리뷰 작성 여부", example = "false")
     private val isReviewed: Boolean? = null,
 
-//    @Schema(description = "참가자 목록")
-//    private val participation: MutableList<ParticipationResponse?>? = null,
+    @Schema(description = "참가자 목록")
+    private val participation: MutableList<ParticipationResponse>? = null,
 ) {
-//    companion object {
-//        fun from(meeting: Meeting, isWished: Boolean, isReviewed:Boolean): MeetingListResponse{
-//            val drinkType: String? = if(meeting.drinkType != null) meeting.drinkType!!.name else null
-//        }
-//
-//    }
+    companion object {
+        fun from(meeting: Meeting, isWished: Boolean, isReviewed: Boolean): MeetingListResponse {
+            val drinkType: String? = if (meeting.drinkType != null) meeting.drinkType!!.name else null
+
+            val participationList: MutableList<ParticipationResponse> = meeting.participations.stream().filter{participation -> !participation.canceled}
+                .map{participation -> ParticipationResponse.from(participation, meeting.author.id) }
+                .toList()
+
+            return MeetingListResponse(
+                meetingId = meeting.id,
+                meetingAuthor = meeting.author.nickname,
+                meetingTitle = meeting.title,
+                location = LocationResponse.from(meeting.location),
+                participationFee = meeting.participationFee,
+                startAt = meeting.startAt,
+                joinEndAt = meeting.joinEndAt,
+                maxParticipants = meeting.maxParticipants,
+                minParticipants = meeting.minParticipants,
+                currentParticipants = meeting.getCurrentParticipantCount(),
+                tastingDrinkCount = meeting.getTastingDrinkCount(),
+                isWished = isWished,
+                thumbnailUrl = meeting.thumbnailUrl,
+                status = meeting.status?.value,
+                drinkType = drinkType,
+                isReviewed = isReviewed,
+                participation = participationList
+            )
+        }
+
+    }
 }
