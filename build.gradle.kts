@@ -38,7 +38,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.9")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.11")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.springframework.boot:spring-boot-docker-compose")
     compileOnly("org.projectlombok:lombok")
@@ -56,7 +56,7 @@ dependencies {
     implementation("io.jsonwebtoken:jjwt-api:0.12.7")
 
     //queryDSL
-    implementation("com.querydsl:querydsl-jpa:5.1.0:jakarta")
+    implementation("io.github.openfeign.querydsl:querydsl-jpa:7.0")
     kapt("com.querydsl:querydsl-apt:5.0.0:jakarta")
     kapt("jakarta.annotation:jakarta.annotation-api")
     kapt("jakarta.persistence:jakarta.persistence-api")

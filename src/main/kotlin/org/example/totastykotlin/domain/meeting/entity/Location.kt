@@ -5,7 +5,7 @@ import jakarta.persistence.Embeddable
 import org.hibernate.annotations.Comment
 
 @Embeddable
-class Location(
+open class Location(
     @Column(length = 20)
     @Comment("시/도")
     val sido: String,
