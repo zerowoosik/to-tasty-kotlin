@@ -16,7 +16,7 @@ class ParticipationResponse(
     @field:Schema(description = "프로필 이미지 URL", example = "https://example.com/profile.jpg")
     val profileImgUrl: String? = null,
 
-    @JsonProperty("isHost")
+    @field:JsonProperty("isHost")
     @field:Schema(description = "모임 주최자 여부", example = "true")
     val isHost: Boolean? = null,
 

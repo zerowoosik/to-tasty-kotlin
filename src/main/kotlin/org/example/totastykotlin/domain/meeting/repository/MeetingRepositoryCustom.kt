@@ -10,7 +10,7 @@ import org.springframework.data.domain.Slice
 interface MeetingRepositoryCustom {
     fun findMeetingsWithFilter(sido: String?, drinkType: DrinkType?, sortType: SortType?, pageable: Pageable?) : Slice<Meeting>
 
-    fun findMeetingsWithFilter(sido: String, drinkType: DrinkType, sortType: SortType, statusFilter: MeetingStatus, pageable: Pageable): Slice<Meeting>
+    fun findMeetingsWithFilter(sido: String?, drinkType: DrinkType?, sortType: SortType?, statusFilter: MeetingStatus?, pageable: Pageable?): Slice<Meeting>
 
     fun findMeetingsWithFilterByMemberId(sido: String, drinkType: DrinkType, sortType: SortType, pageable: Pageable, memberId: Long) : Slice<Meeting>
 }

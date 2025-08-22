@@ -2,7 +2,6 @@ package org.example.totastykotlin.domain.meeting.entity
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.persistence.*
-import lombok.Builder
 import org.example.totastykotlin.domain.common.BaseEntity
 import org.example.totastykotlin.domain.meeting.enums.MeetingStatus
 import org.example.totastykotlin.domain.member.entity.Member
@@ -59,7 +58,6 @@ open class Meeting(
     var content: String? = null,
 
     @Enumerated(EnumType.STRING)
-    @Builder.Default
     @Comment("모임 상태")
     var status: MeetingStatus? = null,
 
@@ -68,11 +66,9 @@ open class Meeting(
     var drinkType: DrinkType? = null,
 
     @OneToMany(mappedBy = "meeting", cascade = [CascadeType.ALL], orphanRemoval = true)
-    @Builder.Default
     val tastingList: MutableList<MeetingTasting> = ArrayList(),
 
     @OneToMany(mappedBy = "meeting", cascade = [CascadeType.ALL], orphanRemoval = true)
-    @Builder.Default
     val participations: MutableList<MeetingParticipation> = ArrayList(),
 
     ) : BaseEntity() {

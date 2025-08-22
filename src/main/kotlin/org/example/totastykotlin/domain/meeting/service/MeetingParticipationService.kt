@@ -3,8 +3,7 @@ package org.example.totastykotlin.domain.meeting.service
 import lombok.RequiredArgsConstructor
 import org.springframework.stereotype.Service
 
-@Service
-@RequiredArgsConstructor
+//@Service
 interface MeetingParticipationService {
 //
 //    fun validateParticipation(meetingId: Long, memberId: Long): Boolean {
