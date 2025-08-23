@@ -9,11 +9,11 @@ import java.time.LocalDate
 @Entity
 class Member(
     @Column(unique = true)
-    private var email: String,
+    var email: String,
 
     @Column(name = "social_id")
     @Comment("소셜 ID")
-    private var socialId: String,
+    var socialId: String,
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,22 +21,22 @@ class Member(
     var id: Long,
 
     @Column
-    private var nickname: String? = null,
+    var nickname: String? = null,
 
-    private var birthdate: LocalDate? = null,
+    var birthdate: LocalDate? = null,
 
-    private var isAdultVerified: Boolean? = null,
+    var isAdultVerified: Boolean? = null,
 
     @Enumerated(EnumType.STRING)
-    private var gender: Gender? = null,
+    var gender: Gender? = null,
 
-    private var profileImageUrl: String? = null,
+    var profileImageUrl: String? = null,
 
     @Column(name = "refresh_token")
     @Comment("리프레시 토큰")
-    private var refreshToken: String? = null,
+    var refreshToken: String? = null,
 
     @Column(name = "interest")
-    private var interests: MutableList<String?> = ArrayList()
+    var interests: MutableList<String> = ArrayList()
 
 ) : BaseEntity()

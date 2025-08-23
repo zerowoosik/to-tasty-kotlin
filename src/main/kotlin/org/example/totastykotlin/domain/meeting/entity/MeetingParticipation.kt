@@ -6,7 +6,7 @@ import org.example.totastykotlin.domain.member.entity.Member
 import org.hibernate.annotations.Comment
 
 @Entity
-data class MeetingParticipation(
+open class MeetingParticipation(
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     @Comment("참가자")
@@ -26,11 +26,14 @@ data class MeetingParticipation(
     var canceled: Boolean = false
 
 ): BaseEntity() {
+    companion object {
+        fun create(member: Member, meeting: Meeting): MeetingParticipation {
+            return MeetingParticipation(member = member, meeting = meeting)
+        }
+    }
+
     fun cancel() {
         this.canceled = true;
     }
 
-    fun create(member: Member, meeting: Meeting): MeetingParticipation? {
-        return MeetingParticipation(member = member, meeting = meeting)
-    }
 }

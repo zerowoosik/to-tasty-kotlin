@@ -2,16 +2,16 @@ package org.example.totastykotlin.domain.meeting.entity
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.persistence.*
-import lombok.Builder
 import org.example.totastykotlin.domain.common.BaseEntity
 import org.example.totastykotlin.domain.meeting.enums.MeetingStatus
 import org.example.totastykotlin.domain.member.entity.Member
+import org.example.totastykotlin.domain.tasting.entity.MeetingTasting
 import org.example.totastykotlin.drink.enums.DrinkType
 import org.hibernate.annotations.Comment
 import java.time.LocalDateTime
 
 @Entity
-class Meeting(
+open class Meeting(
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id")
     @Comment("모임 주최자")
@@ -58,7 +58,6 @@ class Meeting(
     var content: String? = null,
 
     @Enumerated(EnumType.STRING)
-    @Builder.Default
     @Comment("모임 상태")
     var status: MeetingStatus? = null,
 
@@ -66,13 +65,11 @@ class Meeting(
     @Comment("주요 음료 타입")
     var drinkType: DrinkType? = null,
 
-//    @OneToMany(mappedBy = "meeting", cascade = [CascadeType.ALL], orphanRemoval = true)
-//    @Builder.Default
-//    val tastingList: MutableList<MeetingTasting?> = ArrayList(),
+    @OneToMany(mappedBy = "meeting", cascade = [CascadeType.ALL], orphanRemoval = true)
+    val tastingList: MutableList<MeetingTasting> = ArrayList(),
 
     @OneToMany(mappedBy = "meeting", cascade = [CascadeType.ALL], orphanRemoval = true)
-    @Builder.Default
-    val participations: MutableList<MeetingParticipation?> = ArrayList(),
+    val participations: MutableList<MeetingParticipation> = ArrayList(),
 
     ) : BaseEntity() {
 
@@ -116,6 +113,10 @@ class Meeting(
 
     fun getCurrentParticipantCount(): Int {
         return participations.stream().filter { participation -> !participation!!.canceled }.count().toInt()
+    }
+
+    fun getTastingDrinkCount(): Int {
+        return tastingList.stream().filter{tasting -> tasting.deletedAt == null}.count().toInt()
     }
 
     @JsonProperty("isWished")
